@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Initial POC</title>
+
+<link rel="stylesheet" href="http://netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css" />
+<script src="http://code.angularjs.org/1.2.16/angular.js"></script>
+<script src="js/elasticsearch.angular.min.js"></script>
+<script src="js/elastic.min.js"></script>
+<script src="js/elasticui.min.js"></script>
+<script type="text/javascript" src="js/angular-recursion.min.js"></script>
+<script type="text/javascript" src="js/angular-elastic-builder.min.js"></script>
+
+<script>
+  angular
+    .module('tradesearch', ['elasticui','angular-elastic-builder'])
+    .constant('euiHost', 'http://apikey:DEVELOPMENT-Indexer@api.exiletools.com');
+</script>
+
+
+</head>
+<body ng-app="tradesearch" eui-index="'index'" eui-sort="ejs.Sort(shop.chaosEquiv).order('asc')" eui-enabled="true">
+
+Name Search: <eui-searchbox field="'info.fullNameTokenized'"></eui-searchbox> 
+
+<h3>Choose a League:</h3>
+<eui-singleselect field="'attributes.league'" size="5"></eui-singleselect>
+
+<h3>Choose a Base Item Type:</h3>
+<eui-singleselect field="'attributes.baseItemType'" size="5"></eui-singleselect>
+
+<h3>Choose a Rarity:</h3>
+<eui-singleselect field="'attributes.rarity'" size="5"></eui-singleselect>
+
+<h3>Verified Only?</h3>
+<input type="checkbox" eui-filter="ejs.TermsFilter('shop.verified', 'yes')" ng-model="filter.enabled">
+
+<h3>b/o Only?</h3>
+<input type="checkbox" eui-filter="ejs.RangeFilter('shop.chaosEquiv').gt('0')" ng-model="filter.enabled">
+
+
+<h3>Results Per Page</h3>
+<select ng-model="indexVM.pageSize">
+  <option ng-repeat="item in [10, 20, 50, 100]">{{item}}</option>
+</select>
+
+
+<h1>Results</h1>
+<p ng-repeat="doc in indexVM.results.hits.hits">
+{{doc._source.info.fullName}}<br>
+{{doc._source.attributes.equipType}} | {{doc._source.attributes.baseItemType}} | {{doc._source.attributes.rarity}}<br>
+{{doc._source.attributes.league}} | {{doc._source.shop.amount}} {{doc._source.shop.currency}}<br><br>
+
+
+
+
+<!--  {{doc._source | json | limitTo: 500}} -->
+</p>
+
+<div data-elastic-builder="elasticBuilderData"></div>
+
+<script>
+/* Controller code */
+
+/**
+ * The elasticBuilderData object will be modified in place so that you can use
+ * your own $watch, and/or your own saving mechanism
+ */
+$scope.elasticBuilderData = {};
+$scope.elasticBuilderData.query = [];
+
+/**
+ * This object is the lookup for what fields
+ * are available in your database, as well as definitions of what kind
+ * of data they are
+ */
+$scope.elasticBuilderData.fields = {
+  'some.number.field': { type: 'number' },
+  'some.term.field': { type: 'term' },
+  'some.boolean.field': { type: 'term', subType: 'boolean' },
+  'multi.selector': { type: 'multi', choices: [ 'AZ', 'CA', 'CT' ]}
+};
+</script>
+
+</body>
+</html>

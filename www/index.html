@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Initial POC</title>
+
+<link rel="stylesheet" href="http://netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css" />
+<script src="http://code.angularjs.org/1.2.16/angular.js"></script>
+<script src="js/elasticsearch.angular.min.js"></script>
+<script src="js/elastic.min.js"></script>
+<script type="text/javascript" src="js/angular-recursion.min.js"></script>
+<script type="text/javascript" src="js/angular-elastic-builder.min.js"></script>
+<script src="https://code.jquery.com/jquery-2.1.3.min.js"></script>
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+
+<script>
+angular.module('tradesearch', [ 'angular-elastic-builder' ]);
+</script>
+
+</head>
+<body data-ng-app="tradesearch">
+
+<div data-elastic-builder="elasticBuilderData"></div>
+
+<script>
+/* Controller code */
+
+/**
+ * The elasticBuilderData object will be modified in place so that you can use
+ * your own $watch, and/or your own saving mechanism
+ */
+$scope.elasticBuilderData = {};
+$scope.elasticBuilderData.query = [];
+
+/**
+ * This object is the lookup for what fields
+ * are available in your database, as well as definitions of what kind
+ * of data they are
+ */
+$scope.elasticBuilderData.fields = {
+  'some.number.field': { type: 'number' },
+  'some.term.field': { type: 'term' },
+  'some.boolean.field': { type: 'term', subType: 'boolean' },
+  'multi.selector': { type: 'multi', choices: [ 'AZ', 'CA', 'CT' ]}
+};
+</script>
+</body>
+</html>
