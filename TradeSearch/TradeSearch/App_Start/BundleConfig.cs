@@ -41,6 +41,10 @@ namespace TradeSearch
                     Path = "~/Scripts/respond.min.js",
                     DebugPath = "~/Scripts/respond.js",
                 });
+
+            bundles.Add(new ScriptBundle("~/bundles/TradeSearch")
+                .IncludeDirectory("~/Scripts/Controllers", "*.js")
+                .Include("~/Scripts/TradeSearch.js"));
         }
     }
 }
