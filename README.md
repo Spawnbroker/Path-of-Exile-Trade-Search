@@ -1,11 +1,8 @@
 # exiletools-trade-search
-[Placeholder] ExileTools Trade Search Community Web Project
 
-This is an initial placeholder for the beginning of the Exile Tools Trade Search Community Web Project.
+This is a clone of the original exiletools-trade-search project by trackpete.  This originally began as a fork, but I quickly realized that this might require some server-side calculations and modeling in order to get the full feature set.  
 
-The goal of this project is to create a full featured Path of Exile Trade Search web page using the exiletools.com ElasticSearch Index of items available for sale/trade. Instead of being created privately, all development will be available to the community to add features, alternate layouts, and other such items. The resulting web page will be hosted on exiletools.com but may also be used by any community member on their own private or public servers. 
-
-I decided to create this project publicly and make it available for contributions because I'm not a full time developer and am not at all an experienced modern web developer. Allowing the community to contribute as well as to see and download all of the code will hopefully improve the Exile Tools Trade Search as well as motivate developers to port it to different platforms and tools.
+I have decided to begin building this out in ASP.NET MVC as a Single Page Application with Angular.js.  This allows me to route all requests through ASP.NET Controllers if I wish to, which will allow us to control when our web requests are sent instead of relying on ElasticSearchUI to do it all the time.
 
 The initial goals of the Exile Tools Trade Search web page are as follows:
 
@@ -47,3 +44,6 @@ https://github.com/fullscale/dangle
 Misc Angular Stuff:
 
 https://github.com/chieffancypants/angular-loading-bar
+
+How to use Angular with ASP.NET MVC, an in-depth tutorial:
+http://www.codeproject.com/Articles/806029/Getting-started-with-AngularJS-and-ASP-NET-MVC-Par
