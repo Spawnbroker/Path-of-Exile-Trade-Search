@@ -50,6 +50,7 @@ namespace TradeSearch
 
             bundles.Add(new ScriptBundle("~/bundles/TradeSearch")
                 .IncludeDirectory("~/Scripts/Controllers", "*.js")
+                .IncludeDirectory("~/Scripts/Factories", "*.js")
                 .Include("~/Scripts/TradeSearch.js"));
         }
     }
